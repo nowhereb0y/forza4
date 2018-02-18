@@ -24,7 +24,9 @@ int main()
 	int nplayer; //variabile per far scegliere tra human vs pc | human vs human
 	char nomeplayer1[25];
 	char nomeplayer2[25];
-
+	int mossaplayer1, mossaplayer2; //variabile per memorizzare la mossa del giocatore
+	char symbol1= 'X'; //simbolo del giocatore 1
+	char symbol2= 'O'; //simbolo del giocatore 2
 	banneriniziale();
 
 	printf ("inserire 1 per sfidare il computer o 2 per giocare tra umani\n");
@@ -53,8 +55,38 @@ int main()
 				}
 
 
-
 	riempi_campo(campoGioco);
+
+	//proviamo a mettere qualche mossa
+	stampa_campo(campoGioco);
+	printf("\n %s è il tuo turno, fai la tua mossa scegliendo il numero della colonna \n", nomeplayer1);
+
+	scanf("%d", &mossaplayer1);
+
+	//devo calcolare a che riga la colonna è libera
+
+	int i,j;
+	int liberi[7];
+	for (i=0; i<RIGHE; i++)
+		{
+		for (j=0;j<COLONNE;j++)
+			{
+				if (campoGioco[i][j] == '1')
+				{
+					liberi[i]=j;
+					printf("%d............\n", liberi[i]);
+				}
+			}
+		}
+
+	for (i=0; i<COLONNE; i++)
+
+		{
+			printf("-%d", liberi[i]);
+		}
+
+
+	//
 	stampa_campo(campoGioco);
 
 	getchar();

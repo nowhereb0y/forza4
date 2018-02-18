@@ -41,10 +41,7 @@ void stampa_campo(char campoGioco[][COLONNE])
 
 	for (i=0;i<RIGHE;i++)
 	{
-		for (j=0;j<COLONNE;j++)
-		{
-			printf("|%c|", campoGioco[i][j]);
-		}
+
 
 		printf("\n");
 	}

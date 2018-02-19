@@ -27,7 +27,7 @@ void riempi_campo(char campoGioco[][COLONNE])
 	{
 		for (j=0;j<COLONNE;j++)
 		{
-			campoGioco[i][j]='1';
+			campoGioco[i][j]=' ';
 		}
 	}
 }

@@ -24,9 +24,13 @@ int main()
 	int nplayer; //variabile per far scegliere tra human vs pc | human vs human
 	char nomeplayer1[25];
 	char nomeplayer2[25];
+	int r,c; //righe e colonne
 	int mossaplayer1, mossaplayer2; //variabile per memorizzare la mossa del giocatore
 	char symbol1= 'X'; //simbolo del giocatore 1
 	char symbol2= 'O'; //simbolo del giocatore 2
+	int contamosse;
+	char whichplayer;
+
 	banneriniziale();
 
 	printf ("inserire 1 per sfidare il computer o 2 per giocare tra umani\n");
@@ -58,13 +62,36 @@ int main()
 	riempi_campo(campoGioco);
 
 	//proviamo a mettere qualche mossa
+
+	contamosse=0;
+
+	whichplayer = turno(contamosse);
+	int
+
+
+
+
+
+
+
+
+
+
 	stampa_campo(campoGioco);
+
+
+
 	printf("\n %s è il tuo turno, fai la tua mossa scegliendo il numero della colonna \n", nomeplayer1);
 
-	scanf("%d", &mossaplayer1);
+	scanf("%d", &mossaplayer);
 
-	//devo calcolare a che riga la colonna è libera
 
+
+
+
+
+	//devo calcolare a che riga la colonna è libera - anche no!
+/*
 	int i,j;
 	int liberi[7];
 	for (i=0; i<RIGHE; i++)
@@ -85,17 +112,13 @@ int main()
 			printf("-%d", liberi[i]);
 		}
 
-	/*	GRAVITA'?????????
-	 *
-	 *     if(colonna>=1 && colonna<=5)
-     {
+*/
+	//	GRAVITA'?????????
 
-         for(i=5; griglia[i][colonna] == ' ' ; i--)
-            griglia[i][colonna]==simbolo[turno_utente];
+//	int posiziona_pedina(int pos, char gio)
+	/*La funzione posiziona la pedina nella griglia e ritorna le y*/
 
-        }
-	 */
-
+	mettipedina(mossaplayer)
 	//
 	stampa_campo(campoGioco);
 

@@ -85,6 +85,16 @@ int main()
 			printf("-%d", liberi[i]);
 		}
 
+	/*	GRAVITA'?????????
+	 *
+	 *     if(colonna>=1 && colonna<=5)
+     {
+
+         for(i=5; griglia[i][colonna] == ' ' ; i--)
+            griglia[i][colonna]==simbolo[turno_utente];
+
+        }
+	 */
 
 	//
 	stampa_campo(campoGioco);

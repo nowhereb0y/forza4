@@ -13,61 +13,120 @@
 
 #include "campogioco.h"
 #include "stampe.h"
+#include "defplayer.h"
+
+
 //#include "campogioco.c"
 //#define COLONNE 7
 //#define RIGHE 6
 //void riempi_Matrice(char campoGioco[][COLONNE]); //funzione per inizializzare la matrice
 //void stampa_Matrice(char campoGioco[][COLONNE]); //funzione per stampare la matrice
+
+
 int main()
-	{
+
+{
 	char campoGioco[RIGHE][COLONNE]; //campo di gioco
-	int nplayer; //variabile per far scegliere tra human vs pc | human vs human
-	char nomeplayer1[25];
-	char nomeplayer2[25];
 	int r,c; //righe e colonne
 	int mossaplayer1, mossaplayer2; //variabile per memorizzare la mossa del giocatore
 	char symbol1= 'X'; //simbolo del giocatore 1
 	char symbol2= 'O'; //simbolo del giocatore 2
 	int contamosse;
 	char whichplayer;
+	int npl = -1;
+	//int numutenti();
+
+	typedef struct
+		{char nome[25];
+		char symbol[1];
+		int vittorie;
+		} pl;
+
 
 	banneriniziale();
 
-	printf ("inserire 1 per sfidare il computer o 2 per giocare tra umani\n");
-	printf ("make your choice");
-	scanf("%d", &nplayer);
+	while (npl==-1) //memorizzo il numero di giocatori umani chiamando la funzione "numerogiocatori"
+		{			//ed esco in caso l'utente inserisca un valore diverso da 1 e 2 per più di 5 volte;
+			npl=numerogiocatori();
+		}
+	if (npl==-2)
+		{
+		exit(0);
+		}
+	else if (npl==1)
+		{
+			pl player1;
+			pl * p1;
+			p1 = &player1;
+			datigiocatori(p1);
+			printf("Welcome %s \n", player1.nome);
+		}
 
-	if (nplayer==1)
-			{
-				printf ("hai scelto di giocare contro il computer\n");
-				printf ("Inserisci il tuo nome (max 25 caratteri)\n");
-				scanf("%s[25]", nomeplayer1);
-				printf("%s", nomeplayer1);
+	else if (npl==2)
+		{
+			pl player1;
+			pl * p1;
+			p1 = &player1;
+			datigiocatori(p1);
+			printf("Welcome %s \n", player1.nome);
+			pl player2;
+			pl * p2;
+			p2 = &player2;
+			datigiocatori(p2);
+			printf("Welcome %s \n", player2.nome);
 
-			}
-		else if (nplayer == 2)
+		}
+
+
+//printf("%s", player1.nome)
+/*
+	 typedef struct PLAYER
+		{char nome[25];
+		char symbol[1];
+		int vittorie;
+		} pl;
+
+		//int nplayer;
+		printf ("inserire 1 per sfidare il computer o 2 per giocare tra umani\n");
+		printf ("make your choice");
+		scanf("%d", &nplayer);
+		//return nplayer;
+
+		if (nplayer==1)
 				{
-					printf ("perfetto, siete due giocatori pronti a sfidarvi!\n");
-					printf ("Inserisci il  nome del giocatore 1 (max 25 caratteri)\n");
-					scanf("%s", nomeplayer1);
-					printf ("Inserisci il  nome del giocatore 2 (max 25 caratteri)\n");
-					scanf("%s", nomeplayer2);
-				}
-		else if (nplayer != 1 && nplayer != 2)
-				{
-			printf ("hai effettuato una scelta errata");
-				}
+					pl player1;
+					printf ("hai scelto di giocare contro il computer\n");
+					printf ("Inserisci il tuo nome (max 25 caratteri)\n");
+					scanf("%s[25]", &player1.nome);
+					printf("%s", player1.nome);
+					return 1;
 
-
-	riempi_campo(campoGioco);
+				}
+			else if (nplayer == 2)
+					{
+						pl player1;
+						pl player2;
+						printf ("perfetto, siete due giocatori pronti a sfidarvi!\n");
+						printf ("Inserisci il  nome del giocatore 1 (max 25 caratteri)\n");
+						scanf("%s", &player1.nome);
+						printf ("Inserisci il  nome del giocatore 2 (max 25 caratteri)\n");
+						scanf("%s", &player2.nome);
+						printf("Benvenuti %s e %s, buon divertimento", player1.nome, player2.nome);
+						return 2;
+					}
+			else if (nplayer != 1 && nplayer != 2)
+					{
+				printf ("hai effettuato una scelta errata");
+				return -1;
+					}
+*/
+	//riempi_campo(campoGioco);
 
 	//proviamo a mettere qualche mossa
 
-	contamosse=0;
+	//contamosse=0;
 
-	whichplayer = turno(contamosse);
-	int
-
+	//whichplayer = turno(contamosse);
 
 
 
@@ -77,13 +136,15 @@ int main()
 
 
 
-	stampa_campo(campoGioco);
+
+
+	//stampa_campo(campoGioco);
 
 
 
-	printf("\n %s è il tuo turno, fai la tua mossa scegliendo il numero della colonna \n", nomeplayer1);
+//	printf("\n %s è il tuo turno, fai la tua mossa scegliendo il numero della colonna \n", nomeplayer1);
 
-	scanf("%d", &mossaplayer);
+	//scanf("%d", &mossaplayer);
 
 
 
@@ -118,9 +179,9 @@ int main()
 //	int posiziona_pedina(int pos, char gio)
 	/*La funzione posiziona la pedina nella griglia e ritorna le y*/
 
-	mettipedina(mossaplayer)
+	//mettipedina(mossaplayer)
 	//
-	stampa_campo(campoGioco);
+	//stampa_campo(campoGioco);
 
 	getchar();
 	exit(0);

@@ -9,7 +9,7 @@
 #define SRC_DEFPLAYER_H_
 
 void inserisciutenti();
-int numerogiocatori();
+int numerogiocatori(int * count);
 
 typedef struct
 	{char nome[25];

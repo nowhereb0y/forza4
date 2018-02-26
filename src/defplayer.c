@@ -31,7 +31,7 @@ scanf("%c", &player2.symbol);
 
 
 
-int numerogiocatori()
+int numerogiocatori( int * count )
 
 	{
 
@@ -44,7 +44,7 @@ int numerogiocatori()
 		printf ("inserire 1 per sfidare il computer o 2 per giocare tra umani\n");
 		printf ("make your choice");
 		scanf("%d", &nplayer);
-		int m;
+//		int m;
 		if (nplayer==1)
 				{
 					//pl player1;
@@ -65,7 +65,7 @@ int numerogiocatori()
 						printf("Benvenuti %s e %s, buon divertimento", player1.nome, player2.nome);
 						 */
 					}
-			else if (nplayer != 1 && nplayer != 2 && m>=12)
+			else if (nplayer != 1 && nplayer != 2 && (* count)>=4)
 					{
 
 				printf ("hai effettuato una scelta errata per 5 volte, riapri il programma.\n");
@@ -77,8 +77,8 @@ int numerogiocatori()
 			else if (nplayer != 1 && nplayer != 2)
 					{
 				nplayer=-1;
-				m++;
-				printf ("hai effettuato una scelta errata %d \n", m);
+				* count = (* count) +1;
+				printf ("hai effettuato una scelta errata %d \n", * count);
 
 					}
 			return nplayer;

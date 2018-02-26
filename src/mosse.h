@@ -7,8 +7,9 @@
 
 #ifndef SRC_MOSSE_H_
 #define SRC_MOSSE_H_
-
-int mettipedina(int pos, symbol);
+#define COLONNE 7
+#define RIGHE 6
+int mettipedina(int pos, char symbol, char campoGioco[][COLONNE]);
 
 char turno(int contamosse);
 

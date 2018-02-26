@@ -21,7 +21,7 @@
 //#define RIGHE 6
 //void riempi_Matrice(char campoGioco[][COLONNE]); //funzione per inizializzare la matrice
 //void stampa_Matrice(char campoGioco[][COLONNE]); //funzione per stampare la matrice
-
+int chiediposizione(char campoGioco[][COLONNE]);
 
 int main()
 
@@ -31,6 +31,7 @@ int main()
 	int mossaplayer1, mossaplayer2; //variabile per memorizzare la mossa del giocatore
 	char symbol1= 'X'; //simbolo del giocatore 1
 	char symbol2= 'O'; //simbolo del giocatore 2
+	char symbol;
 	int contamosse;
 	char whichplayer;
 	int npl = -1;
@@ -45,9 +46,11 @@ int main()
 
 	banneriniziale();
 
+
+	int count = 0;
 	while (npl==-1) //memorizzo il numero di giocatori umani chiamando la funzione "numerogiocatori"
 		{			//ed esco in caso l'utente inserisca un valore diverso da 1 e 2 per più di 5 volte;
-			npl=numerogiocatori();
+			npl=numerogiocatori(&count);
 		}
 	if (npl==-2)
 		{
@@ -76,6 +79,37 @@ int main()
 			printf("Welcome %s \n", player2.nome);
 
 		}
+
+	free(count);
+
+	riempi_campo(campoGioco);
+	stampa_campo(campoGioco);
+
+
+	//chiedo la pedina al giocatore
+	mossaplayer1 = chiediposizione(campoGioco);
+	//inserisco la pedina nella griglia
+
+	symbol=symbol1;
+	mettipedina(mossaplayer1, symbol, campoGioco);
+
+	//printf("%d \n", nonso);
+	stampa_campo(campoGioco);
+
+	mossaplayer2=4;
+	symbol=symbol2;
+	mettipedina(mossaplayer2, symbol, campoGioco);
+	stampa_campo(campoGioco);
+
+	mossaplayer2=4;
+	symbol=symbol1;
+	mettipedina(mossaplayer2, symbol, campoGioco);
+	stampa_campo(campoGioco);
+
+	mossaplayer1=4;
+	symbol=symbol2;
+	mettipedina(mossaplayer1, symbol, campoGioco);
+	stampa_campo(campoGioco);
 
 
 //printf("%s", player1.nome)
@@ -188,4 +222,20 @@ int main()
 
 	}
 
+int chiediposizione(char campoGioco[][COLONNE])
+{
+		int ncol;
+		do{
+		printf("Inserisci la colonna dove posizionare la pedina: ");
+		scanf("%d" , &ncol);
+		//printf("---1---Stampa colonna: %d", ncol-1);
+		if((ncol<1) || (ncol >(COLONNE)))
 
+			printf("Scelta errata, la posizione è fuori dalla griglia!\n");
+
+		}
+		while ((ncol < 1) || (ncol > COLONNE) || (campoGioco[0][ncol-1] != ' '));
+//		return ncol-1;
+		return ncol;
+		printf("Stampa colonna: %d \n", ncol-1) ;
+}

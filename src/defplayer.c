@@ -84,14 +84,5 @@ int numerogiocatori( int * count )
 			return nplayer;
 	}
 
-void datigiocatori(pl * p1)
 
-	{
-
-		printf ("Inserisci il tuo nome (max 25 caratteri-----)\n");
-
-		scanf("%s", p1->nome);
-
-
-	}
 

@@ -11,10 +11,12 @@
 void inserisciutenti();
 int numerogiocatori(int * count);
 
-typedef struct
+/*typedef struct
 	{char nome[25];
 	char symbol[1];
 	int vittorie;
-	} pl;
-void datigiocatori(pl * p1);
+	} pl;*/
+
+
+
 #endif /* SRC_DEFPLAYER_H_ */

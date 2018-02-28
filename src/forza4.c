@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "campogioco.h"
 #include "stampe.h"
@@ -24,6 +25,7 @@ typedef struct
 
 int chiediposizione(char campoGioco[][COLONNE], pl * p1);
 void datigiocatori(pl * p1);
+int checkWin(char campoGioco[][COLONNE], pl * p1);
 //void inserisciNome(int npl);
 
 
@@ -84,19 +86,33 @@ int main()
 						mossaplayer1=chiediposizione(campoGioco, p1);
 						printf("mossaplayer1: %d", mossaplayer1);
 						symbol=symbol1;
+						strcpy (p1->symbol, symbol1);
 						mettipedina(mossaplayer1, symbol, campoGioco);
 						mosse++;
 						stampa_campo(campoGioco);
-						//checkVittoria
+						int vittoria;
+						vittoria=checkWin(campoGioco, p1);
+						if (vittoria != -1)
+						{
+							exit(0);
+						}
+
 					}
 				else
 					{
 						mossaplayer2=chiediposizione(campoGioco, p2);
 						symbol=symbol2;
+						strcpy(p2->symbol,symbol);
 						mettipedina(mossaplayer2, symbol, campoGioco);
 						mosse++;
 						stampa_campo(campoGioco);
-						//checkVittoria
+						int vittoria;
+						vittoria=checkWin(campoGioco, p2);
+						if (vittoria != -1)
+						{
+							exit(0);
+						}
+
 					}
 			}
 		}
@@ -162,4 +178,64 @@ void datigiocatori(pl * p1)
 		scanf("%s", p1->nome);
 //		printf ("%s, scegli il tuo simbolo: \n", p1->nome);
 //		scanf("%s", p1->symbol);
+	}
+
+
+int checkWin(char campoGioco[][COLONNE], pl * p1)
+
+	{
+	int i,j;
+	int ritorno= -1;
+	char symbol;
+	symbol=p1->symbol;
+	//Chech orizzontale
+	for (i=0; i<RIGHE; i++)
+		{
+		for (j=0; j<COLONNE;j++)
+			{
+				if (campoGioco[i][j]==symbol && campoGioco[i][j+1]==symbol && campoGioco[i][j+2]==symbol && campoGioco[i][j+3]==symbol)
+					{
+						printf("VITTORIA ORIZZONTALE per %s!!!!", p1->nome );
+						ritorno=1;
+					}
+
+			}
+		}
+	//Chech verticale
+	for (i=0; i<RIGHE; i++)
+		{
+		for (j=0; j<COLONNE;j++)
+			{
+				if (campoGioco[i][j]==symbol && campoGioco[i+1][j]==symbol && campoGioco[i+2][j]==symbol && campoGioco[i+3][j]==symbol)
+					{
+						printf("VITTORIA VERTICALE per %s!!!!", p1->nome );
+						ritorno=2;
+					}
+			}
+		}
+	//Chech diagonale decrescente
+	for (i=0; i<RIGHE; i++)
+		{
+		for (j=0; j<COLONNE;j++)
+			{
+				if (campoGioco[i][j]==symbol && campoGioco[i+1][j+1]==symbol && campoGioco[i+2][j+2]==symbol && campoGioco[i+3][j+3]==symbol)
+					{
+						printf("VITTORIA DIAGONALE DECRESCENTE per %s!!!!", p1->nome);
+						ritorno=3;
+					}
+			}
+		}
+	//Chech diagonale crescente
+	for (i=RIGHE; i>=0; i--)
+		{
+		for (j=COLONNE; j>=0;j--)
+			{
+				if (campoGioco[i][j]==symbol && campoGioco[i-1][j+1]==symbol && campoGioco[i-2][j+2]==symbol && campoGioco[i-3][j+3]==symbol)
+					{
+						printf("VITTORIA DIAGONALE CRESCENTE per %s!!!!", p1->nome);
+						ritorno=4;
+					}
+			}
+		}
+	return ritorno;
 	}

@@ -19,7 +19,7 @@
 
 typedef struct
 	{char nome[25];
-	char symbol[1];
+	char symbol;
 	int vittorie; } pl;
 
 
@@ -86,32 +86,32 @@ int main()
 						mossaplayer1=chiediposizione(campoGioco, p1);
 						printf("mossaplayer1: %d", mossaplayer1);
 						symbol=symbol1;
-						strcpy (p1->symbol, symbol1);
+						p1->symbol=symbol;
 						mettipedina(mossaplayer1, symbol, campoGioco);
 						mosse++;
 						stampa_campo(campoGioco);
 						int vittoria;
 						vittoria=checkWin(campoGioco, p1);
 						if (vittoria != -1)
-						{
-							exit(0);
-						}
+							{
+								exit(0);
+							}
 
 					}
 				else
 					{
 						mossaplayer2=chiediposizione(campoGioco, p2);
 						symbol=symbol2;
-						strcpy(p2->symbol,symbol);
+						p2->symbol=symbol;
 						mettipedina(mossaplayer2, symbol, campoGioco);
 						mosse++;
 						stampa_campo(campoGioco);
 						int vittoria;
 						vittoria=checkWin(campoGioco, p2);
 						if (vittoria != -1)
-						{
-							exit(0);
-						}
+							{
+								exit(0);
+							}
 
 					}
 			}
@@ -188,7 +188,9 @@ int checkWin(char campoGioco[][COLONNE], pl * p1)
 	int ritorno= -1;
 	char symbol;
 	symbol=p1->symbol;
-	//Chech orizzontale
+	//strncpy (symbol, p1->symbol[1], 1);
+
+	//Check orizzontale
 	for (i=0; i<RIGHE; i++)
 		{
 		for (j=0; j<COLONNE;j++)

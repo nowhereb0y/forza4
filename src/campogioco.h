@@ -13,5 +13,6 @@
 
 void riempi_campo(char campoGioco[][COLONNE]); //funzione per inizializzare la matrice
 void stampa_campo(char campoGioco[][COLONNE]); //funzione per stampare la matrice
+int mettipedina(int pos, char symbol, char campoGioco[][COLONNE]);
 
 #endif /* SRC_CAMPOGIOCO_H_ */

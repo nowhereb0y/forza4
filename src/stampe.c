@@ -5,6 +5,10 @@
  *      Author: nowhereboy
  */
 #include <stdio.h>
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/nowhereb0y/forza4
 void banneriniziale()
 
 	{

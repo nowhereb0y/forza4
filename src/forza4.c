@@ -22,14 +22,14 @@ typedef struct
 	char symbol;
 	int vittorie; } pl;
 
-char campoGioco[RIGHE][COLONNE]; //campo di gioco, utilizzo una matrice
+
 
 void datigiocatori(pl * p1);
 int chiediposizione(char campoGioco[][COLONNE], pl * p1);
 int checkwin(char campoGioco[][COLONNE], pl * p1);
 //int numerogiocatori(int * count);
-void fineturno(pl * p1, pl * p2, int * mosse);
-int rivincita(int * count, char campoGioco[][COLONNE]);
+void fineturno(pl * p1, pl * p2, int pareggi);
+int rivincita(int * count, char campoGioco[][COLONNE], int partite,int * mosse );
 
 
 int main()
@@ -38,7 +38,8 @@ int main()
 	int mossaplayer1, mossaplayer2; //variabile per memorizzare la mossa del giocatore
 	char symbol;
 	int count = 0; //variabile utilizzata nel ciclo while per tenere conto dei tentativi errati ed uscire nel caso in cui la scelta sia sbagliata per 5 volte
-
+	int pareggi = 0;
+	int partite = 0;
 	banneriniziale(); //stampa il banner di benvenuto
 
 	pl player1; //definisco il giocatore 1 come variabile  "pl" definito nella parte dichiarativa del programma
@@ -68,10 +69,12 @@ int main()
 
 	while (vittoria==-1) //inizia il gioco vero e proprio in un ciclo verificato fino a che
 	{
-		if (mosse==COLONNE*RIGHE) //verifico che le mosse non siano superiori agli spazi contenuti nella matrice, nel caso lo siano termino la partita con un pareggio.
+		if (mosse==COLONNE*RIGHE||mosse==(1+(2*COLONNE*RIGHE))) //verifico che le mosse non siano superiori agli spazi contenuti nella matrice, nel caso lo siano termino la partita con un pareggio.
 				{
 					printf("\n\n\t\tPartita terminata, non ci sono vincitori!\n\n");
-					fineturno(p1, p2,&mosse);
+					partite++;
+					pareggi++;
+					fineturno(p1, p2, pareggi);
 					vittoria=-3;
 
 				}
@@ -86,9 +89,10 @@ int main()
 					if (vittoria != -1)
 							{
 								p1->vittorie++;
+								partite++;
 								stampa_campo(campoGioco);
 								bannervittoria();
-								fineturno(p1, p2, &mosse);
+								fineturno(p1, p2, pareggi);
 
 							}
 
@@ -103,9 +107,10 @@ int main()
 					if (vittoria != -1)
 							{
 								p2->vittorie++;
+								partite++;
 								stampa_campo(campoGioco);
 								bannervittoria();
-								fineturno(p1, p2,&mosse);
+								fineturno(p1, p2, pareggi);
 								printf ("\t\t Complimenti %s!!", p2->nome);
 							}
 
@@ -115,7 +120,7 @@ int main()
 		if (vittoria != -1)
 				{
 				printf("\n\n\nVuoi giocare ancora????");
-				vittoria=rivincita(&count, campoGioco);
+				vittoria=rivincita(&count, campoGioco, partite, &mosse);
 				}
 			}
 
@@ -190,7 +195,7 @@ int checkwin(char campoGioco[][COLONNE], pl * p1)
 		{
 		for (j=0; j<COLONNE;j++)
 			{
-				if (i+3 >= RIGHE-1 && campoGioco[i][j]==p1->symbol && campoGioco[i+1][j]==p1->symbol && campoGioco[i+2][j]==p1->symbol && campoGioco[i+3][j]==p1->symbol)
+				if (i+3 <= RIGHE-1 &&  campoGioco[i][j]==p1->symbol && campoGioco[i+1][j]==p1->symbol && campoGioco[i+2][j]==p1->symbol && campoGioco[i+3][j]==p1->symbol)
 					{
 						printf("\n\nVITTORIA VERTICALE per %s!!!! \n", p1->nome );
 						ritorno=2;
@@ -231,14 +236,14 @@ int checkwin(char campoGioco[][COLONNE], pl * p1)
 
 
 
-void fineturno(pl * p1, pl * p2, int * mosse)
+void fineturno(pl * p1, pl * p2, int pareggi)
 	{
 		printf("\t\t %s , hai vinto %d partite!\n", p1->nome, p1->vittorie);
 		printf("\t\t %s , hai vinto %d partite!\n", p2->nome, p2->vittorie);
-		* mosse = 0;
+		printf("\t\t Pareggi: %d", pareggi);
 	}
 
-int rivincita ( int * count,  char campoGioco[][COLONNE] )
+int rivincita ( int * count,  char campoGioco[][COLONNE], int partite, int * mosse )
 
 	{
 
@@ -266,12 +271,20 @@ int rivincita ( int * count,  char campoGioco[][COLONNE] )
 					}
 
 
-			else if (rivincita ==1)
+			else if (rivincita==1)
+				{
+					riempi_campo(campoGioco);
+					if (partite % 2 == 0)
 					{
-				rivincita=-1;
-				riempi_campo(campoGioco);
+						* mosse=0;
+					}
 
-				* count=0;
+					else if (partite % 2 == 1)
+					{
+						* mosse=COLONNE*RIGHE+1;
+					}
+				rivincita=-1;
+
 
 				printf ("Si rigioca! \n");
 				printf ("RIVINCITA: %d\n", rivincita);

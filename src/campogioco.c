@@ -60,7 +60,7 @@ void stampa_campo(char campoGioco[][COLONNE])
 void mettipedina(int mossaplayer1, char symbol, char campoGioco[][COLONNE])
 
 {
-	int c;
+	int i;
 	//int ritorno;
 		//printf("Prima mossa inserita nel mettipedina: %d \n", mossaplayer1);
 	//char campoGioco[RIGHE][COLONNE];
@@ -74,16 +74,17 @@ void mettipedina(int mossaplayer1, char symbol, char campoGioco[][COLONNE])
     		}
     else
     		{
-        		for(c=(RIGHE-1); c>=0; c--)
-        		{
-        			if(campoGioco[c-1][mossaplayer1-1] == ' ')
-            		{
-            			campoGioco[c-1][mossaplayer1-1] = symbol;
 
-            			c=-1;
-            			//ritorno=c-1;
+        		for(i=(RIGHE-1); i>=0; i--)
+        		{
+        			if(campoGioco[i-1][mossaplayer1-1] == ' ')
+            		{
+            			campoGioco[i-1][mossaplayer1-1] = symbol;
+
+            			i=-1;
+
             		}
         		}
     		}
-    //return ritorno;
+
 }

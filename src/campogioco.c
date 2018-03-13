@@ -1,8 +1,8 @@
 /*
  * campogioco.c
  *
- *  Created on: 18 feb 2018
- *      Author: nowhereboy
+ *
+ *      Autore: Salvatore Albino
  */
 
 
@@ -61,16 +61,11 @@ void mettipedina(int mossaplayer1, char symbol, char campoGioco[][COLONNE])
 
 {
 	int i;
-	//int ritorno;
-		//printf("Prima mossa inserita nel mettipedina: %d \n", mossaplayer1);
-	//char campoGioco[RIGHE][COLONNE];
-	//printf("%c \n--SIMBOLO INSERITO--\n  -%c-  \n", symbol, campoGioco[RIGHE-1][mossaplayer1-1]);
+
 
     if(campoGioco[RIGHE -1][mossaplayer1-1] == ' ')
     		{
     			campoGioco[RIGHE-1][mossaplayer1-1] = symbol;
-    			//printf("-PRIMA IF: STAMPO IL VALORE NELLA MATRICE-\n %c \n", campoGioco[RIGHE-1][mossaplayer1-1]);
-    			//ritorno = COLONNE-1;
     		}
     else
     		{

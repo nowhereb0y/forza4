@@ -1,8 +1,8 @@
 /*
  * campogioco.h
  *
- *  Created on: 18 feb 2018
- *      Author: nowhereboy
+ *
+ *      Autore: Salvatore Albino
  */
 
 #ifndef SRC_CAMPOGIOCO_H_

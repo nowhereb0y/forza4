@@ -4,9 +4,7 @@
  *  Created on: 18 feb 2018
  *      Author: nowhereboy
  */
-#include <stdio.h>
-<<<<<<< HEAD
-=======
+
 
 >>>>>>> branch 'master' of https://github.com/nowhereb0y/forza4
 void banneriniziale()

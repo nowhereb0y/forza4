@@ -57,12 +57,12 @@ void stampa_campo(char campoGioco[][COLONNE])
 	printf("\t\t|1||2||3||4||5||6||7|\n\n\n");
 }
 
-int mettipedina(int mossaplayer1, char symbol, char campoGioco[][COLONNE])
+void mettipedina(int mossaplayer1, char symbol, char campoGioco[][COLONNE])
 
 {
 	int c;
-	int ritorno;
-	//printf("Prima mossa inserita nel mettipedina: %d \n", mossaplayer1);
+	//int ritorno;
+		//printf("Prima mossa inserita nel mettipedina: %d \n", mossaplayer1);
 	//char campoGioco[RIGHE][COLONNE];
 	//printf("%c \n--SIMBOLO INSERITO--\n  -%c-  \n", symbol, campoGioco[RIGHE-1][mossaplayer1-1]);
 
@@ -70,7 +70,7 @@ int mettipedina(int mossaplayer1, char symbol, char campoGioco[][COLONNE])
     		{
     			campoGioco[RIGHE-1][mossaplayer1-1] = symbol;
     			//printf("-PRIMA IF: STAMPO IL VALORE NELLA MATRICE-\n %c \n", campoGioco[RIGHE-1][mossaplayer1-1]);
-    			ritorno = COLONNE-1;
+    			//ritorno = COLONNE-1;
     		}
     else
     		{
@@ -81,9 +81,10 @@ int mettipedina(int mossaplayer1, char symbol, char campoGioco[][COLONNE])
             			campoGioco[c-1][mossaplayer1-1] = symbol;
 
             			c=-1;
-            			ritorno=c-1;
+            			//ritorno=c-1;
             		}
         		}
     		}
-    return ritorno;
+    //return ritorno;
 }
+

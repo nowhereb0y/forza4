@@ -62,24 +62,16 @@ void mettipedina(int mossaplayer1, char symbol, char campoGioco[][COLONNE])
 {
 	int i;
 
-
-    if(campoGioco[RIGHE -1][mossaplayer1-1] == ' ')
-    		{
-    			campoGioco[RIGHE-1][mossaplayer1-1] = symbol;
-    		}
-    else
-    		{
-
-        		for(i=(RIGHE-1); i>=0; i--)
+        		for(i=(RIGHE -1); i>=0; i--)
         		{
-        			if(campoGioco[i-1][mossaplayer1-1] == ' ')
+        			if(campoGioco[i][mossaplayer1-1] == ' ')
             		{
-            			campoGioco[i-1][mossaplayer1-1] = symbol;
+            			campoGioco[i][mossaplayer1-1] = symbol;
 
             			i=-1;
 
             		}
         		}
-    		}
+
 
 }

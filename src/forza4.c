@@ -176,7 +176,7 @@ int chiediposizione(char campoGioco[][COLONNE], pl * p1) //funzione che chiede a
 
 				else if(campoGioco[0][ncol-1] != ' ') //verifico che la colonna selezionata non sia piena
 					{
-					printf("  La colonna selezionata è piena! Ripeti la selezione. \n")
+					printf("  La colonna selezionata è piena! Ripeti la selezione. \n");
 					}
 			}
 

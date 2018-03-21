@@ -1,0 +1,18 @@
+ ============================================================================
+ Name        : FORZA 4
+ Author      : Salvatore Albino
+ Version     : 0.2a
+ Copyright   : GNU General Public License v3.0
+ Description : Sviluppo in C del gioco Forza 4
+ ============================================================================
+ 
+ README
+ 
+  ---Aggiornamenti della versione 0.2---
+  
+  Funzioni aggiornate:
+  
+  -chiediposizione, per effettuare la validazione dell'input inserito dall'utente e evitare errori dovuti alla 
+  digitazione di caratteri non numerici;
+  -checkwin, per mantenere il controllo della pedina all'interno della matrice utilizzata come campo da gioco.
+  

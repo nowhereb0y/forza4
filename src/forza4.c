@@ -168,10 +168,7 @@ int chiediposizione(char campoGioco[][COLONNE], pl * p1) //funzione che chiede a
 
 				{
 					printf("  Scelta errata, la posizione è fuori dalla griglia!\n");
-					//ncol=0;
-					//fflush (stdin);
-					 //void free (void *ncol);
-					// ungetc(ncol, stdin);
+
 				}
 
 				else if(campoGioco[0][ncol-1] != ' ') //verifico che la colonna selezionata non sia piena

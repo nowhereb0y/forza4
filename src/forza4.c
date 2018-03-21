@@ -3,26 +3,21 @@
  ============================================================================
  Name        : FORZA 4
  Author      : Salvatore Albino
- Version     : 0.1a
- Copyright   : Your copyright notice
+ Version     : 0.2a
+ Copyright   : GNU General Public License v3.0
  Description : Sviluppo in C del gioco Forza 4
  ============================================================================
  */
 
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "campogioco.h"
 #include "stampe.h"
-
-
 
 typedef struct
 	{char nome[25];
 	char symbol;
 	int vittorie; } pl;
-
-
 
 void datigiocatori(pl * p1);
 int chiediposizione(char campoGioco[][COLONNE], pl * p1);
@@ -142,26 +137,50 @@ void datigiocatori(pl * p1) //procedura richiamata per far inserire il nome all'
 
 int chiediposizione(char campoGioco[][COLONNE], pl * p1) //funzione che chiede all'utente la posizione dove inserire la sua pedina
 {
-		int ncol;
+		 int ncol; //valore della colonna inserito dall'utente
+		 int isint; //variabile per memorizzare il risultato della verifica del tipo inserito dall'utente
+		 char stringa[32]; //stringa utilizzata per memorizzare l'input dell'utente e successivamente validarlo
+
 		do	{
 				printf("\n\n  %s, scegli la colonna dove posizionare la pedina", p1->nome);
-				stampa_campo(campoGioco); //stampo il campo di gioco con la nuova pedina inserita tramite la procedura stampa_campo
+				stampa_campo(campoGioco); //stampo il campo di gioco tramite la procedura stampa_campo
 				printf("\n\n  Inserisci un numero da 1 a 7:");
-				scanf("%d" , &ncol);
-				if((ncol<1) || (ncol >(COLONNE))) //verifico che l'utente non inserisca un valore fuori dal campo di gioco
+				fgets(stringa, sizeof stringa, stdin); 	//al fine di validare l'input inserito dall'utente, non uso una semplice scanf
+														//per evitare errori indotti dall'immissione da parte dell'utente di caratteri piuttosto che interi
+														//utilizzo una stringa di appoggio (stringa) per memorizzare l'input dell'utente
+
+				isint = sscanf(stringa, "%d", &ncol);	//con il comando sscanf verifico che l'utente abbia inserito un numero, in caso positivo "isint" sarà valorizzato a 1
+
+
+
+
+
+				if (isint != 1)						//con if viene valutata nel caso in cui con la funzione sscanf il programma rileva l'inserimento di un carattere
+													//e non di un intero
+				{
+					printf("  Inserire un numero! \n");
+
+				}
+
+
+
+				else if((ncol<1) || (ncol >(COLONNE))) //verifico che l'utente non inserisca un valore fuori dal campo di gioco
 
 				{
 					printf("  Scelta errata, la posizione è fuori dalla griglia!\n");
+					//ncol=0;
+					//fflush (stdin);
+					 //void free (void *ncol);
+					// ungetc(ncol, stdin);
 				}
 
 				else if(campoGioco[0][ncol-1] != ' ') //verifico che la colonna selezionata non sia piena
 					{
-					printf("  La colonna selezionata è piena! Ripeti la selezione. \n") ;
+					printf("  La colonna selezionata è piena! Ripeti la selezione. \n")
 					}
 			}
 
-		while ((ncol < 1) || (ncol > COLONNE) || (campoGioco[0][ncol-1] != ' '));
-
+		while ((ncol < 1) || (ncol > COLONNE) || (campoGioco[0][ncol-1] != ' ')|| (isint != 1) );
 		return ncol; //restituisco la colonna scelta dall'utente al codice che ha invocato la funzione
 
 }
@@ -181,9 +200,9 @@ int checkwin(char campoGioco[][COLONNE], pl * p1)
 	//Check orizzontale
 	for (i=0; i<RIGHE; i++)
 		{
-		for (j=0; j<COLONNE;j++)
+		for (j=0; j<COLONNE-3 ;j++)
 			{
-				if ( j+3 <= COLONNE-1 && campoGioco[i][j]==p1->symbol && campoGioco[i][j+1]==p1->symbol && campoGioco[i][j+2]==p1->symbol && campoGioco[i][j+3]==p1->symbol) //oltre a verificare che ci siano le 4 pedine allineate orizzontalmente verifico che l'incremento della colonna non sia eccessivo
+				if (  campoGioco[i][j]==p1->symbol && campoGioco[i][j+1]==p1->symbol && campoGioco[i][j+2]==p1->symbol && campoGioco[i][j+3]==p1->symbol) //oltre a verificare che ci siano le 4 pedine allineate orizzontalmente verifico che l'incremento della colonna non sia eccessivo
 					{
 						printf("\n\nVITTORIA ORIZZONTALE per %s!!!! \n", p1->nome );
 						ritorno=1;
@@ -192,11 +211,11 @@ int checkwin(char campoGioco[][COLONNE], pl * p1)
 			}
 		}
 	//Chech verticale
-	for (i=0; i<RIGHE; i++)
+	for (i=0; i<RIGHE-3; i++)
 		{
 		for (j=0; j<COLONNE;j++)
 			{
-				if (i+3 <= RIGHE-1 &&  campoGioco[i][j]==p1->symbol && campoGioco[i+1][j]==p1->symbol && campoGioco[i+2][j]==p1->symbol && campoGioco[i+3][j]==p1->symbol) //oltre a verificare che ci siano le 4 pedine allineate verticalmente verifico che l'incremento della riga non sia eccessivo
+				if ( campoGioco[i][j]==p1->symbol && campoGioco[i+1][j]==p1->symbol && campoGioco[i+2][j]==p1->symbol && campoGioco[i+3][j]==p1->symbol) //oltre a verificare che ci siano le 4 pedine allineate verticalmente verifico che l'incremento della riga non sia eccessivo
 					{
 						printf("\n\nVITTORIA VERTICALE per %s!!!! \n", p1->nome );
 						ritorno=2;
@@ -204,11 +223,11 @@ int checkwin(char campoGioco[][COLONNE], pl * p1)
 			}
 		}
 	//Chech diagonale decrescente
-	for (i=0; i<RIGHE; i++)
+	for (i=0; i<RIGHE-3; i++)
 		{
-		for (j=0; j<COLONNE;j++)
+		for (j=0; j<COLONNE-3;j++)
 			{
-				if (i+3 >= RIGHE-1 && j+3 <= COLONNE-1 && campoGioco[i][j]==p1->symbol && campoGioco[i+1][j+1]==p1->symbol && campoGioco[i+2][j+2]==p1->symbol && campoGioco[i+3][j+3]==p1->symbol) //oltre a verificare che ci siano le 4 pedine allineate diagonalmente verifico che l'incremento  di riga e colonna non sia eccessivo
+				if ( campoGioco[i][j]==p1->symbol && campoGioco[i+1][j+1]==p1->symbol && campoGioco[i+2][j+2]==p1->symbol && campoGioco[i+3][j+3]==p1->symbol) //oltre a verificare che ci siano le 4 pedine allineate diagonalmente verifico che l'incremento  di riga e colonna non sia eccessivo
 
 					{
 						printf("\n\nVITTORIA DIAGONALE DECRESCENTE per %s!!!! \n", p1->nome);
@@ -219,13 +238,13 @@ int checkwin(char campoGioco[][COLONNE], pl * p1)
 
 
 	//Chech diagonale crescente
-	for (i=0; i<RIGHE; i++)
+	for (i=3; i<RIGHE; i++)
 		{
-		for (j=0; j<COLONNE;j++)
+		for (j=0; j<COLONNE-3;j++)
 			{
 
 
-				 if (i-3 >= 0 && j+3 <= COLONNE-1 && campoGioco[i][j]==p1->symbol && campoGioco[(i-1)][j+1]==p1->symbol && campoGioco[i-2][j+2]==p1->symbol && campoGioco[i-3][j+3]==p1->symbol) //oltre a verificare che ci siano le 4 pedine allineate diagonalmente verifico che l'incremento o la sottrazione  di riga e colonna non sia eccessivo
+				 if (campoGioco[i][j]==p1->symbol && campoGioco[(i-1)][j+1]==p1->symbol && campoGioco[i-2][j+2]==p1->symbol && campoGioco[i-3][j+3]==p1->symbol) //oltre a verificare che ci siano le 4 pedine allineate diagonalmente verifico che l'incremento o la sottrazione  di riga e colonna non sia eccessivo
 					{
 
 						printf("\n\nVITTORIA DIAGONALE CRESCENTE per %s!!!!\n", p1->nome);

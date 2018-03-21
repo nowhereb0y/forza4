@@ -139,7 +139,7 @@ int chiediposizione(char campoGioco[][COLONNE], pl * p1) //funzione che chiede a
 {
 		 int ncol; //valore della colonna inserito dall'utente
 		 int isint; //variabile per memorizzare il risultato della verifica del tipo inserito dall'utente
-		 char stringa[32]; //stringa utilizzata per memorizzare l'input dell'utente e successivamente validarlo
+		 char stringa[16]; //stringa utilizzata per memorizzare l'input dell'utente e successivamente validarlo
 
 		do	{
 				printf("\n\n  %s, scegli la colonna dove posizionare la pedina", p1->nome);

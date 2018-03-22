@@ -3,7 +3,7 @@
  ============================================================================
  Name        : FORZA 4
  Author      : Salvatore Albino
- Version     : 0.2a
+ Version     : 1.0
  Copyright   : GNU General Public License v3.0
  Description : Sviluppo in C del gioco Forza 4
  ============================================================================
@@ -22,7 +22,6 @@ typedef struct
 void datigiocatori(pl * p1);
 int chiediposizione(char campoGioco[][COLONNE], pl * p1);
 int checkwin(char campoGioco[][COLONNE], pl * p1);
-//int numerogiocatori(int * count);
 void fineturno(pl * p1, pl * p2, int pareggi);
 int rivincita(int * count, char campoGioco[][COLONNE], int partite,int * mosse );
 
@@ -76,14 +75,14 @@ int main()
 
 				}
 
-		else if (mosse % 2 == 0) //turno del giocatore 1
-				{
-					mossaplayer1=chiediposizione(campoGioco, p1); //chiamo la funzione chiediposizione che chiederà all'utente di scegliere la colonna dove posizionare la pedina, informazione che sarà restituita dalla funzione e memorizzata nella variabile "mossaplayer1"
-					symbol=p1->symbol; //valorizzo la variabile symbol con il simbolo assegnato al giocatore 1. Utilizzerò la variabile appena inizializzata per passarla come valore alla procedura mettipedina
-					mettipedina(mossaplayer1, symbol, campoGioco); //chiamo la procedura mettipedina che inserirà il simbolo dell'utente nella posizione scelta
-					mosse++; //incremento il contatore delle mosse
-					vittoria=checkwin(campoGioco, p1); //chiamo la funzione checkwin per verificare se ci sono 4 pedine allineate
-					if (vittoria != -1)//nel caso in cui riscontro la vittoria da parte del giocatore eseguo le seguenti azioni
+			else if (mosse % 2 == 0) //turno del giocatore 1
+					{
+						mossaplayer1=chiediposizione(campoGioco, p1); //chiamo la funzione chiediposizione che chiederà all'utente di scegliere la colonna dove posizionare la pedina, informazione che sarà restituita dalla funzione e memorizzata nella variabile "mossaplayer1"
+						symbol=p1->symbol; //valorizzo la variabile symbol con il simbolo assegnato al giocatore 1. Utilizzerò la variabile appena inizializzata per passarla come valore alla procedura mettipedina
+						mettipedina(mossaplayer1, symbol, campoGioco); //chiamo la procedura mettipedina che inserirà il simbolo dell'utente nella posizione scelta
+						mosse++; //incremento il contatore delle mosse
+						vittoria=checkwin(campoGioco, p1); //chiamo la funzione checkwin per verificare se ci sono 4 pedine allineate
+						if (vittoria != -1)//nel caso in cui riscontro la vittoria da parte del giocatore eseguo le seguenti azioni
 							{
 								p1->vittorie++; //incremento il contatore delle vittorie sulla variabile strutturata del giocatore
 								partite++; //incremento il contatore delle partite
@@ -93,15 +92,16 @@ int main()
 
 							}
 
-				}
-		else if (mosse % 2 == 1)//turno del giocatore 2
-				{
-					mossaplayer2=chiediposizione(campoGioco, p2);
-					symbol=p2->symbol;
-					mettipedina(mossaplayer2, symbol, campoGioco);
-					mosse++;
-					vittoria=checkwin(campoGioco, p2);
-					if (vittoria != -1)
+					}
+
+			else if (mosse % 2 == 1)//turno del giocatore 2
+					{
+						mossaplayer2=chiediposizione(campoGioco, p2);
+						symbol=p2->symbol;
+						mettipedina(mossaplayer2, symbol, campoGioco);
+						mosse++;
+						vittoria=checkwin(campoGioco, p2);
+						if (vittoria != -1)
 							{
 								p2->vittorie++;
 								partite++;
@@ -111,19 +111,18 @@ int main()
 								printf ("\t\t Complimenti %s!!", p2->nome);
 							}
 
-
 					}
+
 
 		if (vittoria != -1) //se c'è una vittoria o un pareggio
 				{
 				printf("\n\n\nVuoi giocare ancora????");
 				vittoria=rivincita(&count, campoGioco, partite, &mosse); //chiamo la funzione per chiedere all'utente se vuole giocare ancora o se vuole uscire
 				}
-			}
+		}
 
 
-	getchar();
-	exit(0);
+
 
 	}
 
@@ -157,24 +156,21 @@ int chiediposizione(char campoGioco[][COLONNE], pl * p1) //funzione che chiede a
 
 				if (isint != 1)						//con if viene valutata nel caso in cui con la funzione sscanf il programma rileva l'inserimento di un carattere
 													//e non di un intero
-				{
-					printf("  Inserire un numero! \n");
-
-				}
-
-
-
-				else if((ncol<1) || (ncol >(COLONNE))) //verifico che l'utente non inserisca un valore fuori dal campo di gioco
-
-				{
-					printf("  Scelta errata, la posizione è fuori dalla griglia!\n");
-
-				}
-
-				else if(campoGioco[0][ncol-1] != ' ') //verifico che la colonna selezionata non sia piena
 					{
-					printf("  La colonna selezionata è piena! Ripeti la selezione. \n");
+						printf("  Inserire un numero! \n");
+
 					}
+
+					else if((ncol<1) || (ncol >(COLONNE))) //verifico che l'utente non inserisca un valore fuori dal campo di gioco
+						{
+							printf("  Scelta errata, la posizione è fuori dalla griglia!\n");
+
+						}
+
+					else if(campoGioco[0][ncol-1] != ' ') //verifico che la colonna selezionata non sia piena
+						{
+							printf("  La colonna selezionata è piena! Ripeti la selezione. \n");
+						}
 			}
 
 		while ((ncol < 1) || (ncol > COLONNE) || (campoGioco[0][ncol-1] != ' ')|| (isint != 1) );
